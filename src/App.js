@@ -6,10 +6,14 @@ import Teacher from "./pages/teachers/Teacher";
 import Users from "./pages/users/Users";
 import Login from "./components/Login"
 import Finance from "./pages/finances/Finance";
+import Loading from "./components/Loading";
+import Notification from "./components/Notification";
 
 function App() {
   return (
-    <div className='App'>
+    <>
+      <Loading />
+      {/* <Notification/> */}
       <Routes>
         <Route path='/' element={<Router />}>
           <Route index element={<Dashboard />} />
@@ -20,7 +24,7 @@ function App() {
         </Route>
         <Route path='login' element={<Login />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
