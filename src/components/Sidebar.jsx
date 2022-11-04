@@ -41,7 +41,7 @@ const Sidebar = () => {
   );
 
   return (
-    <div className='flex flex-col ml-12 top-0 left-0 text-gray-600  bg-[#f0eff5] w-60 h-screen border-r-2 border-dashed border-gray-200'>
+    <div className='flex flex-col ml-12 top-0 left-0 text-gray-600 dark:text-white bg-[#f0eff5] w-60 dark:border-gray-600 dark:bg-slate-900 h-screen border-r-[1px] border-dashed border-gray-200'>
       <div className='flex justify-start  items-center gap-2 pr-2 mt-6'>
         <GiSchoolBag size={25} />
         <h1 className='font-semibold text-2xl'>School System</h1>
