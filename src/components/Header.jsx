@@ -69,7 +69,7 @@ const Header = () => {
           <FiSearch className='text-[#555555]' />
         </div>
         <input
-          className='focus:border-none focus:outline-none rounded-tr-lg rounded-br-lg text-[#464646] border-none bg-[#dce4ff]'
+          className='focus:border-none focus:outline-none focus:ring-0 rounded-tr-lg rounded-br-lg text-[#464646] border-none bg-[#dce4ff]'
           type='text'
           placeholder='Search'
         />
