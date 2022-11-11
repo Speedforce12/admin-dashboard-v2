@@ -4,10 +4,10 @@ import Sidebar from "../components/Sidebar";
 
 const Router = () => {
   return (
-    <div className='flex'>
+    <div className='min-h-screen'>
       <Sidebar />
 
-      <div className='flex-1'>
+      <div className='p-4 xl:ml-80'>
         <Header />
         {<Outlet />}
       </div>

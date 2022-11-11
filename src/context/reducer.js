@@ -16,11 +16,12 @@ const reducer = (state, action) => {
     case "END_EDITING":
       return { ...state, editMode: false };
 
-    case "OPEN_LOGIN":
-      return { ...state, openLogin: true };
+    case "SHOW_SIDEBAR":
+      return { ...state, ShowSidebar: true };
 
-    case "CLOSE_LOGIN":
-      return { ...state, openLogin: false };
+    case "HIDE_SIDEBAR":
+      return { ...state, ShowSidebar: false };
+
     case "OPEN_MODAL":
       return { ...state, openModal: true };
 

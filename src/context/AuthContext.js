@@ -21,6 +21,7 @@ const INITIAL_STATE = {
   teacher: null,
   info: {},
   editMode: false,
+  ShowSidebar: false,
 };
 
 const AuthContext = createContext(INITIAL_STATE);

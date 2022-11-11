@@ -91,12 +91,12 @@ const Income = ({ setChoice }) => {
               <select
                 name='category'
                 id='category'
-                className='focus:outline-none focus:border-lime-400 border-2 py-2 px-4 rounded-lg min-w-max'
+                className='focus:outline-none focus:border-lime-400 border-2 py-2 rounded-lg min-w-max'
                 value={formik.values.category}
                 onChange={formik.handleChange}
               >
-                <option value='Government'>Government</option>
-                <option value='school fee'>School Fee</option>
+                <option className="px-6"  value='Government'>Government</option>
+                <option className="px-6" value='school fee'>School Fee</option>
               </select>
               <div className='flex items-center justify-between'>
                 <button

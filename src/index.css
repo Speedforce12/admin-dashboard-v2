@@ -7,7 +7,7 @@
 body {
   font-family: "Poppins", sans-serif;
     background-color: #f0eff5;
-    /* @apply  dark:bg-slate-900 */
+    @apply  dark:bg-slate-900
 
 }
 

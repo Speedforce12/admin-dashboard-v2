@@ -1,52 +1,84 @@
-import { DataGrid } from "@mui/x-data-grid";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    minWidth: 150,
-    flex: 1,
-    editable: true,
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    minWidth: 150,
-    flex:1,
-    editable: true,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    minWidth: 110,
-    flex:1,
-    editable: true,
-  }
-
-];
-
-const rows = [
-  { id: 1, lastName: "Snow" ,age: 35 },
-  { id: 2, lastName: "Lannister", age: 42 },
-  { id: 3, lastName: "Lannister",  age: 45 },
-  { id: 4, lastName: "Lannister",  age: 45 },
-];
-
 
 const List = () => {
     return (
-      <div className="h-full w-full">
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[4]}
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-          />
-      </div>
+      <>
+          <table className='w-full'>
+            <thead className='bg-gray-50 border-b-2 border-gray-200'>
+              <tr>
+                <th className='w-7 p-3 text-sm font-semibold tracking-wide text-left'>
+                  No.
+                </th>
+                <th className='w-20 p-3 text-sm font-semibold tracking-wide text-left'>
+                  Details
+                </th>
+                <th className='w-10 p-3 text-sm font-semibold tracking-wide text-left'>
+                  Status
+                </th>
+                <th className='w-10 p-3 text-sm font-semibold tracking-wide text-left'>
+                  Date
+                </th>
+                <th className='w-10 p-3 text-sm font-semibold tracking-wide text-left'>
+                  Total
+                </th>
+              </tr>
+            </thead>
+            <tbody className='divide-y divide-gray-100'>
+              <tr className='bg-white'>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  1
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  Gaming Mouse
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  <span className='p-1.5 text-xs font-medium uppercase tracking-wider rounded-lg text-gray-800 bg-gray-200/50'>
+                    Cancelled
+                  </span>
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  15/10/22
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  $521
+                </td>
+              </tr>
+              <tr className='bg-gray'>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  2
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  Gaming Mouse
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  <span className='p-1.5 text-xs font-medium uppercase tracking-wider rounded-lg text-yellow-800 bg-yellow-200/50'>
+                    Shipped
+                  </span>
+                </td>
+                <td>15/10/22</td>
+                <td>$471</td>
+              </tr>
+              <tr className='bg-white'>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  3
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  Laptop
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  <span className='p-1.5 text-xs font-medium uppercase tracking-wider rounded-lg text-green-800 bg-green-200/50'>
+                    Delivered
+                  </span>
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  15/10/22
+                </td>
+                <td className='whitespace-nowrap p-3 text-sm text-gray-700'>
+                  $811
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </>
     );
 };
 

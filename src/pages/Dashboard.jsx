@@ -5,24 +5,21 @@ import Task from "./tasks/Task";
 
 const Dashboard = () => {
   return (
-    <div className='flex flex-col'>
-      <div className='flex gap-7 mt-5 mx-5 justify-center'>
-        <StatsCard />
-        <StatsCard />
-        <StatsCard />
+    <>
+      <div className='mt-5'>
         <StatsCard />
       </div>
-      <div className=' px-2 py-8 mt-5 flex justify-items-center  mr-4'>
-        <div className='bg-white hover:shadow-2xl text-center w-max flex flex-col rounded-lg p-4 shadow-xl ml-4 py-5'>
-          <h4 className='font-semibold text-lg mb-2 '>Task </h4>
+      <div className='grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-x-6 gap-y-12'>
+        <div className='bg-white hover:shadow-2xl text-center grid col-span-2 xl:col-span-1 overflow-x-scroll  rounded-lg items-center shadow-xl'>
+          <h4 className='font-semibold text-lg mb-2'>Task </h4>
           <Task />
         </div>
-        <div className='bg-white text-center hover:shadow-2xl flex flex-col flex-[4] rounded-lg p-4 shadow-xl ml-4 py-5'>
+        <div className='bg-white text-center hover:shadow-2xl grid lg:col-span-2 rounded-lg shadow-xl py-5 overflow-auto'>
           <h4 className='font-semibold text-lg mb-2 '>Upcoming Events</h4>
           <List />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 const data = [
@@ -56,6 +57,8 @@ const data = [
 
 export default function Task() {
   return (
+    <ResponsiveContainer minWidth={400}  minHeight={300}>
+
     <LineChart
       width={500}
       height={300}
@@ -78,6 +81,7 @@ export default function Task() {
         stroke='#8884d8'
         activeDot={{ r: 8 }}
       />
-    </LineChart>
+      </LineChart>
+      </ResponsiveContainer>
   );
 }
