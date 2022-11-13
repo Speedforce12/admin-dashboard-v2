@@ -60,8 +60,6 @@ export default function Task() {
     <ResponsiveContainer minWidth={400}  minHeight={300}>
 
     <LineChart
-      width={500}
-      height={300}
       data={data}
       margin={{
         top: 5,

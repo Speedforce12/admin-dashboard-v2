@@ -1,7 +1,17 @@
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
+import List from "../../components/List";
+import { data } from "../../assets/data";
 
 const Student = () => {
+  const columns = [
+    { header: "ID" },
+    { header: "Name" },
+    { header: "Address" },
+    { header: "Date" },
+    { header: "Order" },
+    { header: "Actions" },
+  ];
   return (
     <div className='px-6 mt-6'>
       <div className='flex items-center justify-between'>
@@ -12,6 +22,9 @@ const Student = () => {
           <IoMdAdd size={25} />
           New Student
         </Link>
+      </div>
+      <div className='bg-white rounded-xl shadow-md overflow-x-auto mt-8 p-6 px-0 pt-0 pb-2'>
+        <List data={data} columns={columns} />
       </div>
     </div>
   );

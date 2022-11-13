@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useState } from "react";
 import registerPic from "../assets/registerpic.jpg"
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { register } from "../action/user";
+import {useValue} from "../context/AuthContext"
 
 
 const Register = () => {
   const [visible, setVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
+  const { dispatch } = useValue()
+  const navigate = useNavigate()
 
 
   const formik = useFormik({
@@ -20,8 +24,13 @@ const Register = () => {
     },
 
     onSubmit: (values) => {
-      console.log(values);
+      const { confirmPassword, firstName, lastName, email, password } = values;
+      register({ firstName, lastName, email, password }, dispatch);
+      navigate("/login");
+
     },
+
+
   });
 
   return (
@@ -46,7 +55,7 @@ const Register = () => {
 
             <input
               className='p-2 mt-2 rounded-xl border'
-              type='type'
+              type='text'
               name='lastName'
               placeholder='last Name'
               value={formik.values.lastName}
@@ -107,8 +116,7 @@ const Register = () => {
             </div>
             <button
               type='submit'
-              className='bg-[#002d7d] hover:scale-105 duration-300 rounded-xl text-white py-2'
-            >
+              className='bg-[#002d7d] hover:scale-105 duration-300 rounded-xl text-white py-2'>
               Register
             </button>
           </form>

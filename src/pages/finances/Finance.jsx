@@ -13,7 +13,7 @@ const Finance = () => {
       </h1>
       <div className='xl:flex grid gap-8 pt-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
         {/* income */}
-        <div className='col-span-1 bg-white rounded-md justify-center items-center dark:bg-slate-700'>
+        <div className='col-span-1 bg-white rounded-md justify-center items-center dark:bg-slate-700 overflow-auto'>
           <h2 className='text-center pb-3 font-semibold round dark:text-white pt-3'>
             Income
           </h2>
@@ -47,8 +47,10 @@ const Finance = () => {
         </div>
 
         {/* expense */}
-        <div className='bg-white rounded-md justify-center items-center col-span-1 dark:bg-slate-700'>
-          <h2 className='text-center pb-3 font-semibold dark:text-white pt-3'>Expense</h2>
+        <div className='bg-white rounded-md justify-center items-center col-span-1 dark:bg-slate-700 overflow-auto'>
+          <h2 className='text-center pb-3 font-semibold dark:text-white pt-3'>
+            Expense
+          </h2>
           <Chart />
         </div>
       </div>
