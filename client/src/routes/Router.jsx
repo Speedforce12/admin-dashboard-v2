@@ -7,7 +7,7 @@ const Router = () => {
     <div className='min-h-screen'>
       <Sidebar />
 
-      <div className='p-4 xl:ml-80'>
+      <div className='p-4 xl:ml-80 '>
         <Header />
         {<Outlet />}
       </div>

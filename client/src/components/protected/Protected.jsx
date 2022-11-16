@@ -1,18 +1,17 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useValue } from "../../context/AuthContext";
+import Login from "../Login";
 // import AccessMessage from "./AccessMessage";
 
-const Protected = ({ children }) => {
+
+
+const Protected = () => {
   const {
     state: { currentUser },
   } = useValue();
 
-  if (!currentUser) {
-    return <Navigate to='/login' />;
-  } else {
-    return children;
-  }
+  return currentUser ? <Outlet/> : <Login/>;
 };
 
 export default Protected;

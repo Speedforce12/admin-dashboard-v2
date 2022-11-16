@@ -4,9 +4,6 @@ import reducer from "./reducer";
 
 const INITIAL_STATE = {
   currentUser: null,
-  openLogin: false,
-  openModal: false,
-  openEdit: false,
   loading: false,
   alert: { open: false, severity: "info", message: "" },
   profile: { open: false, file: null, photoURL: "" },

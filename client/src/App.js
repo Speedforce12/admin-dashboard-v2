@@ -11,27 +11,24 @@ import Notification from "./components/Notification";
 import Register from "./components/Register";
 import StepperMain from "./components/stepperform/StepperMain";
 import Protected from "./components/protected/Protected";
-
+import Profile from "./components/Profile";
 
 function App() {
   return (
     <>
       <Loading />
-      <Notification/>
+      <Notification />
       <Routes>
-        <Route
-          path='/'
-          element={
-            <Protected>
-              <Router />
-            </Protected>
-          }>
-          <Route index element={<Dashboard />} />
-          <Route path='students' element={<Student />} />
-          <Route path='teachers' element={<Teacher />} />
-          <Route path='users' element={<Users />} />
-          <Route path='finances' element={<Finance />} />
-          <Route path='new-student' element={<StepperMain />} />
+        <Route element={<Protected />}>
+          <Route path='/' element={<Router />}>
+            <Route index element={<Dashboard />} />
+            <Route path='students' element={<Student />} />
+            <Route path='teachers' element={<Teacher />} />
+            <Route path='users' element={<Users />} />
+            <Route path='finances' element={<Finance />} />
+            <Route path='new-student' element={<StepperMain />} />
+            <Route path='profile' element={<Profile />} />
+          </Route>
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />

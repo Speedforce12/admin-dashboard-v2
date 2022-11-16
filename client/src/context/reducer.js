@@ -22,12 +22,6 @@ const reducer = (state, action) => {
     case "HIDE_SIDEBAR":
       return { ...state, ShowSidebar: false };
 
-    case "OPEN_MODAL":
-      return { ...state, openModal: true };
-
-    case "CLOSE_MODAL":
-      return { ...state, openModal: false };
-
     case "OPEN_EDIT":
       return { ...state, openEdit: true };
 
