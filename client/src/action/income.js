@@ -19,7 +19,6 @@ export const createIncome = async (income, currentUser, dispatch) => {
         severity: "success",
       },
     });
-    dispatch({ type: "CLOSE_MODAL" });
 
     dispatch({ type: "UPDATE_INCOME", payload: result });
   }

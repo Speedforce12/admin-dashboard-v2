@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   currentUser: null,
   loading: false,
   alert: { open: false, severity: "info", message: "" },
-  profile: { open: false, file: null, photoURL: "" },
+  profile: { file: null, photoURL: ""},
   users: [],
   teachers: [],
   students: [],

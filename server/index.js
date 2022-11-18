@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRouter from "./routes/userRouter.js";
 // import studentRouter from "./routes/studentRouter.js";
-// import incomeRouter from "./routes/incomeRouter.js";
-// import expenseRouter from "./routes/expenseRouter.js";
+import incomeRouter from "./routes/incomeRouter.js";
+import expenseRouter from "./routes/expenseRouter.js";
 // import teacherRouter from "./routes/teacherRouter.js";
 
 
@@ -31,8 +31,8 @@ app.use(express.json({ limit: "50mb" }));
 app.use("/user", userRouter);
 // app.use("/teacher", teacherRouter);
 // app.use("/student", studentRouter);
-// app.use("/income", incomeRouter);
-// app.use("/expense", expenseRouter);
+app.use("/income", incomeRouter);
+app.use("/expense", expenseRouter);
 app.get("/", (req, res) => res.json({ message: "Welcome to our API" }));
 app.use((req, res) =>
   res.status(404).json({ success: false, message: "Not Found" })

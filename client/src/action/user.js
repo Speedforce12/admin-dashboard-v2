@@ -40,8 +40,8 @@ export const login = async (user, dispatch) => {
 export const updateProfile = async (currentUser, updatedFields, dispatch) => {
   dispatch({ type: "START_LOADING" });
 
-  const { name, file } = updatedFields;
-  let body = { name };
+  const { firstName, lastName, password, file } = updatedFields;
+  let body = { firstName, lastName, password, file};
   try {
     if (file) {
       const imageName = uuidv4() + "." + file?.name?.split(".")?.pop();
@@ -72,7 +72,7 @@ export const updateProfile = async (currentUser, updatedFields, dispatch) => {
       });
       dispatch({
         type: "UPDATE_PROFILE",
-        payload: { open: false, file: null, photoURL: result.photoURL },
+        payload: { file: null, photoURL: result.photoURL },
       });
     }
   } catch (error) {

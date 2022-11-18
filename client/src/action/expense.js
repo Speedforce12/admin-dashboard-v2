@@ -19,7 +19,6 @@ export const createExpense = async (expense, currentUser, dispatch) => {
         severity: "success",
       },
     });
-    dispatch({ type: "CLOSE_MODAL" });
 
     dispatch({ type: "UPDATE_EXPENSE", payload: result });
   }
