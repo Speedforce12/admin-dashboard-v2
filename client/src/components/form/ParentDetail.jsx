@@ -1,4 +1,63 @@
-const ParentDetail = ({ userData, setUserData }) => {
+import { useFormik } from "formik";
+import * as yup from "yup";
+import React, { useContext } from "react";
+import { FormContext } from "../stepperform/StepperMain";
+
+const validationSchema = yup.object({
+  fatherName: yup.string().required("Father name required"),
+  fatherAddress: yup.string().required("Father address required"),
+  fatherOccupation: yup.string().required("Father Occupation required"),
+  fatherHome: yup.string(),
+  fatherCell: yup.string().required("Father cell required"),
+  fatherWork: yup.string(),
+  fatherEmail: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required(),
+  motherName: yup.string().required("Mother name required"),
+  motherAddress: yup.string().required("Mother address required"),
+  motherOccupation: yup.string().required("Mother Occupation required"),
+  motherHome: yup.string(),
+  motherCell: yup.string().required("Mother Cell Number is Required"),
+  motherWork: yup.string(),
+  motherEmail: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required(),
+});
+
+const ParentDetail = () => {
+  const { activeStepIndex, setActiveStepIndex, formData, setFormData } =
+    useContext(FormContext);
+
+  const formik = useFormik({
+    initialValues: {
+      fatherName: "",
+      fatherAddress: "",
+      fatherOccupation: "",
+      fatherHome: "",
+      fatherCell: "",
+      fatherWork: "",
+      fatherEmail: "",
+      motherName: "",
+      motherAddress: "",
+      motherOccupation: "",
+      motherHome: "",
+      motherCell: "",
+      motherWork: "",
+      motherEmail: "",
+    },
+
+    validateOnBlur: true,
+    validationSchema: validationSchema,
+
+    onSubmit: (values) => {
+      const data = { ...formData, ...values };
+      setFormData(data);
+      setActiveStepIndex(activeStepIndex + 1);
+      console.log(values);
+    },
+  });
 
   return (
     <div className='flex flex-col  relative w-full  my-0 mx-4 p-8'>
@@ -6,7 +65,7 @@ const ParentDetail = ({ userData, setUserData }) => {
         Parents Information
       </header>
       <div className='flex-auto px-4 lg:px-10 py-5 pt-5'>
-        <form action=''>
+        <form onSubmit={formik.handleSubmit}>
           {/* <h6 className='text-gray-500 text-sm mt-3 mb-6 font-bold uppercase'>
             Parent's Information
           </h6> */}
@@ -19,18 +78,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherName && formik.errors.fatherName
+                          ? "text-red-400"
+                          : "Father Name"
+                      } `}
                       htmlFor='fatherName'>
-                      Father's Name
+                      {formik.touched.fatherName && formik.errors.fatherName
+                        ? formik.errors.fatherName
+                        : " Father's Name"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherName: e.target.value,
-                        })
-                      }
-                      value={userData.fatherName}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherName}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherName'
@@ -41,18 +102,22 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherAddress &&
+                        formik.errors.fatherAddress
+                          ? "text-red-400"
+                          : "Father Address"
+                      } `}
                       htmlFor='fatherAddress'>
-                      Address
+                      {formik.touched.fatherAddress &&
+                      formik.errors.fatherAddress
+                        ? formik.errors.fatherAddress
+                        : "Address"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherAddress: e.target.value,
-                        })
-                      }
-                      value={userData.fatherAddress}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherAddress}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherAddress'
@@ -62,18 +127,22 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherOccupation &&
+                        formik.errors.fatherOccupation
+                          ? "text-red-400"
+                          : "Occupation"
+                      } `}
                       htmlFor='fatherOccupation'>
-                      Occupation
+                      {formik.touched.fatherOccupation &&
+                      formik.errors.fatherOccupation
+                        ? formik.errors.fatherOccupation
+                        : "Occupation"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherOccupation: e.target.value,
-                        })
-                      }
-                      value={userData.fatherOccupation}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherOccupation}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherOccupation'
@@ -83,18 +152,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherHome && formik.errors.fatherHome
+                          ? "text-red-400"
+                          : "Home Number"
+                      } `}
                       htmlFor='fatherHome'>
-                      Home Number
+                      {formik.touched.fatherHome && formik.errors.fatherHome
+                        ? formik.errors.fatherHome
+                        : "Home Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherHome: e.target.value,
-                        })
-                      }
-                      value={userData.fatherHome}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherHome}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherHome'
@@ -104,18 +175,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherCell && formik.errors.fatherCell
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='fatherCell'>
-                      Cell Number
+                      {formik.touched.fatherCell && formik.errors.fatherCell
+                        ? formik.errors.fatherCell
+                        : "Cell Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherCell: e.target.value,
-                        })
-                      }
-                      value={userData.fatherCell}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherCell}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherCell'
@@ -125,18 +198,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherWork && formik.errors.fatherWork
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='fatherWork'>
-                      Work Number
+                      {formik.touched.fatherWork && formik.errors.fatherWork
+                        ? formik.errors.fatherWork
+                        : "Work Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherWork: e.target.value,
-                        })
-                      }
-                      value={userData.fatherWork}
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherWork}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherWork'
@@ -147,18 +222,21 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.fatherEmail && formik.errors.fatherEmail
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='fatherEmail'>
-                      Email
+                      {formik.touched.fatherEmail && formik.errors.fatherEmail
+                        ? formik.errors.fatherEmail
+                        : "Email"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          fatherEmail: e.target.value,
-                        })
-                      }
-                      value={userData.fatherEmail}
+                      o
+                      onChange={formik.handleChange}
+                      value={formik.values.fatherEmail}
+                      onBlur={formik.handleBlur}
                       type='email'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='fatherEmail'
@@ -175,18 +253,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherName && formik.errors.motherName
+                          ? "text-red-400"
+                          : "Mother Name"
+                      } `}
                       htmlFor='motherName'>
-                      Mother's Name
+                      {formik.touched.motherName && formik.errors.motherName
+                        ? formik.errors.motherName
+                        : " Father's Name"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherName: e.target.value,
-                        })
-                      }
-                      value={userData.motherName}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherName}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherName'
@@ -197,18 +277,22 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherAddress &&
+                        formik.errors.motherAddress
+                          ? "text-red-400"
+                          : "Father Address"
+                      } `}
                       htmlFor='motherAddress'>
-                      Address
+                      {formik.touched.motherAddress &&
+                      formik.errors.motherAddress
+                        ? formik.errors.motherAddress
+                        : "Address"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherAddress: e.target.value,
-                        })
-                      }
-                      value={userData.motherAddress}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherAddress}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherAddress'
@@ -218,18 +302,22 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherOccupation &&
+                        formik.errors.motherOccupation
+                          ? "text-red-400"
+                          : "Occupation"
+                      } `}
                       htmlFor='motherOccupation'>
-                      Occupation
+                      {formik.touched.motherOccupation &&
+                      formik.errors.motherOccupation
+                        ? formik.errors.motherOccupation
+                        : "Occupation"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherOccupation: e.target.value,
-                        })
-                      }
-                      value={userData.motherOccupation}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherOccupation}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherOccupation'
@@ -239,18 +327,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherHome && formik.errors.motherHome
+                          ? "text-red-400"
+                          : "Home Number"
+                      } `}
                       htmlFor='motherHome'>
-                      Home Number
+                      {formik.touched.motherHome && formik.errors.motherHome
+                        ? formik.errors.motherHome
+                        : "Home Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherHome: e.target.value,
-                        })
-                      }
-                      value={userData.motherHome}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherHome}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherHome'
@@ -260,18 +350,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherCell && formik.errors.motherCell
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='motherCell'>
-                      Cell Number
+                      {formik.touched.motherCell && formik.errors.motherCell
+                        ? formik.errors.motherCell
+                        : "Cell Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherCell: e.target.value,
-                        })
-                      }
-                      value={userData.motherCell}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherCell}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherCell'
@@ -281,18 +373,20 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full mb-3'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherWork && formik.errors.motherWork
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='motherWork'>
-                      Work Number
+                      {formik.touched.motherWork && formik.errors.motherWork
+                        ? formik.errors.motherWork
+                        : "Work Number"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherWork: e.target.value,
-                        })
-                      }
-                      value={userData.motherWork}
+                      onChange={formik.handleChange}
+                      value={formik.values.motherWork}
+                      onBlur={formik.handleBlur}
                       type='text'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherWork'
@@ -303,18 +397,21 @@ const ParentDetail = ({ userData, setUserData }) => {
                 <div className='w-full lg:w-6/12 px-4'>
                   <div className='relative w-full'>
                     <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                      className={`block uppercase text-blueGray-600 text-xs font-bold mb-2 ${
+                        formik.touched.motherEmail && formik.errors.motherEmail
+                          ? "text-red-400"
+                          : "text-black"
+                      } `}
                       htmlFor='motherEmail'>
-                      Email
+                      {formik.touched.motherEmail && formik.errors.motherEmail
+                        ? formik.errors.motherEmail
+                        : "Email"}
                     </label>
                     <input
-                      onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          motherEmail: e.target.value,
-                        })
-                      }
-                      value={userData.motherEmail}
+                      o
+                      onChange={formik.handleChange}
+                      value={formik.values.motherEmail}
+                      onBlur={formik.handleBlur}
                       type='email'
                       className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                       name='motherEmail'
@@ -323,6 +420,19 @@ const ParentDetail = ({ userData, setUserData }) => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className='flex justify-between'>
+            <button
+              className='rounded-md bg-indigo-500 font-medium text-white my-2 p-2'
+              type='button'
+              onClick={() => setActiveStepIndex(activeStepIndex - 1)}>
+              Back
+            </button>
+            <button
+              className='rounded-md bg-indigo-500 font-medium text-white my-2 p-2'
+              type='submit'>
+              Continue
+            </button>
           </div>
         </form>
       </div>

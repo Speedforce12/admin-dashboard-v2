@@ -70,10 +70,6 @@ export const updateProfile = async (currentUser, updatedFields, dispatch) => {
           message: "Your profile has been updated successfully",
         },
       });
-      dispatch({
-        type: "UPDATE_PROFILE",
-        payload: { file: null, photoURL: result.photoURL },
-      });
     }
   } catch (error) {
     dispatch({

@@ -64,9 +64,6 @@ const reducer = (state, action) => {
       sessionStorage.setItem("info", JSON.stringify(action.payload));
       return { ...state, info: action.payload };
 
-    case "UPDATE_PROFILE":
-      return { ...state, profile: action.payload };
-
     case "UPDATE_STUDENT":
       return { ...state, student: action.payload };
 

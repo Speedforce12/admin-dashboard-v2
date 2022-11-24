@@ -1,4 +1,57 @@
+import { useFormik } from "formik";
+import { useContext } from "react";
+import { FormContext } from "../stepperform/StepperMain";
+import * as yup from "yup"
+
+const validationSchema = yup.object({
+  guardianName: yup.string(),
+  guardianAddress: yup.string(),
+  guardianHome: yup.string(),
+  guardianCell: yup.string(),
+  guardianWork: yup.string(),
+  guardianEmail: yup.string(),
+  file: yup
+    .mixed()
+    .test(
+      "FILE_SIZE",
+      "Too large of a file",
+      (value) => !value || (value && value.size < 1024 * 1024)
+    )
+    .test(
+      "FILE_TYPE",
+      "Invalid file type",
+      (value) =>
+        !value ||
+        (value &&
+          ["image/png", "image/jpeg", "image/gif"].includes(value?.type))
+    ),
+});
+
 const Acceptance = ({userData, setUserData}) => {
+  const { activeStepIndex, setActiveStepIndex, formData, setFormData } =
+    useContext(FormContext);
+
+  const formik = useFormik({
+    initialValues: {
+      guardianName: "",
+      guardianAddress: "",
+      guardianHome: "",
+      guardianCell: "",
+      guardianWork: "",
+      guardianEmail: "",
+      file: "",
+    },
+
+    validateOnBlur: true,
+    validationSchema: validationSchema,
+
+    onSubmit: (values) => {
+      const data = { ...formData, ...values };
+      setFormData(data);
+      setActiveStepIndex(activeStepIndex + 1);
+      console.log(formData);
+    },
+  });
 
 
   return (
@@ -7,7 +60,7 @@ const Acceptance = ({userData, setUserData}) => {
         Acceptance
       </header>
       <div className='flex-auto px-4 lg:px-10 py-10 pt-10'>
-        <form action=''>
+        <form onSubmit={formik.handleSubmit}>
           {/* <h6 className='text-gray-500 text-sm mt-3 mb-6 font-bold uppercase'>
             Student Information
           </h6> */}
@@ -20,10 +73,9 @@ const Acceptance = ({userData, setUserData}) => {
                   Guardian's Name
                 </label>
                 <input
-                  onChange={(e) =>
-                    setUserData({ ...userData, guardianName: e.target.value })
-                  }
-                  value={userData.guardianName}
+                  onChange={formik.handleChange}
+                  value={formik.values.guardianName}
+                  onBlur={formik.handleBlur}
                   type='text'
                   className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                   name='guardianName'
@@ -38,13 +90,9 @@ const Acceptance = ({userData, setUserData}) => {
                   Address
                 </label>
                 <input
-                  onChange={(e) =>
-                    setUserData({
-                      ...userData,
-                      guardianAddress: e.target.value,
-                    })
-                  }
-                  value={userData.guardianAddress}
+                  onChange={formik.handleChange}
+                  value={formik.values.guardianAddress}
+                  onBlur={formik.handleBlur}
                   type='text'
                   className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                   name='guardianAddress'
@@ -59,13 +107,9 @@ const Acceptance = ({userData, setUserData}) => {
                   Home Number
                 </label>
                 <input
-                  onChange={(e) =>
-                    setUserData({
-                      ...userData,
-                      guardianHome: e.target.value,
-                    })
-                  }
-                  value={userData.guardianHome}
+                  onChange={formik.handleChange}
+                  value={formik.values.guardianHome}
+                  onBlur={formik.handleBlur}
                   type='text'
                   className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                   name='guardianHome'
@@ -80,13 +124,9 @@ const Acceptance = ({userData, setUserData}) => {
                   Cell Number
                 </label>
                 <input
-                  onChange={(e) =>
-                    setUserData({
-                      ...userData,
-                      guardianCell: e.target.value,
-                    })
-                  }
-                  value={userData.guardianCell}
+                  onChange={formik.handleChange}
+                  value={formik.values.guardianCell}
+                  onBlur={formik.handleBlur}
                   type='text'
                   className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                   name='guardianCell'
@@ -101,13 +141,9 @@ const Acceptance = ({userData, setUserData}) => {
                   Work Number
                 </label>
                 <input
-                  onChange={(e) =>
-                    setUserData({
-                      ...userData,
-                      guardianWork: e.target.value,
-                    })
-                  }
-                  value={userData.guardianWork}
+                  onChange={formik.handleChange}
+                  value={formik.values.guardianWork}
+                  onBlur={formik.handleBlur}
                   type='text'
                   className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
                   name='guardianWork'
@@ -136,19 +172,17 @@ const Acceptance = ({userData, setUserData}) => {
                 </svg>
                 <div className='flex text-sm text-gray-600'>
                   <label
-                    htmlFor='file_upload'
+                    htmlFor='file'
                     className='relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'>
                     <span className=''>Upload Contract of Acceptance</span>
                     <input
                       onChange={(e) =>
-                        setUserData({
-                          ...userData,
-                          file_upload: e.target.files,
-                        })
+                        formik.setFieldValue("file", e.target.files[0])
                       }
-                      value={userData.file_upload}
-                      id='file_upload'
-                      name='file_upload'
+                      value={formik.values.fatherName}
+                      onBlur={formik.handleBlur}
+                      id='file'
+                      name='file'
                       type='file'
                       className='sr-only'
                     />
@@ -160,6 +194,19 @@ const Acceptance = ({userData, setUserData}) => {
                 </p>
               </div>
             </div>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className='rounded-md bg-indigo-500 font-medium text-white my-2 p-2'
+              type='button'
+              onClick={() => setActiveStepIndex(activeStepIndex - 1)}>
+              Back
+            </button>
+            <button
+              className='rounded-md bg-indigo-500 font-medium text-white my-2 p-2'
+              type='submit'>
+              Continue
+            </button>
           </div>
         </form>
       </div>

@@ -1,17 +1,34 @@
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
-import List from "../../components/List";
-import { data } from "../../assets/data";
+import List from "../../components/table/List";
+import { useEffect, useMemo } from "react";
+import { useValue } from "../../context/AuthContext";
+import { getStudents } from "../../action/student"
+
 
 const Student = () => {
-  const columns = [
-    { header: "ID" },
-    { header: "Name" },
-    { header: "Address" },
-    { header: "Date" },
-    { header: "Order" },
-    { header: "Actions" },
+    const {
+      state: { students, currentUser },
+      dispatch,
+    } = useValue();
+
+  const COLUMNS = [
+    { Header: "First Name" },
+    { Header: "Last Name" },
+    { Header: "Address" },
+    { Header: "Date of Birth" },
+    // { Header: "Actions" },
   ];
+
+  useEffect(() => {
+    getStudents(dispatch, currentUser);
+  }, []);
+
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => students, [students]);
+
+
+
   return (
     <div className='px-6 mt-6'>
       <div className='flex items-center justify-between'>

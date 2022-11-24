@@ -12,6 +12,7 @@ import Register from "./components/Register";
 import StepperMain from "./components/stepperform/StepperMain";
 import Protected from "./components/protected/Protected";
 import Profile from "./components/Profile";
+import TeacherForm from "./pages/teachers/TeacherForm";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path='users' element={<Users />} />
             <Route path='finances' element={<Finance />} />
             <Route path='new-student' element={<StepperMain />} />
+            <Route path='new-teacher' element={<TeacherForm />} />
             <Route path='profile' element={<Profile />} />
           </Route>
         </Route>

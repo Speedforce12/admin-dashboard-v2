@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { IoMdAdd } from "react-icons/io";
-import List from "../../components/List";
+import List from "../../components/table/List";
+import { useValue } from "../../context/AuthContext";
+import { getUsers } from "../../action/user"
+import {format} from "date-fns"
 
 const Users = () => {
+
+    const {
+      state: { users, currentUser },
+      dispatch,
+  } = useValue();
+  
+  const COLUMNS = [
+    { Header: "Avatar", accessor: "" },
+    { Header: "First Name", accessor: "firstName" },
+    { Header: "Last Name", accessor: "lastName" },
+    { Header: "Email", accessor: "email" },
+    { Header: "Created on", accessor: "createdAt", Cell: ({value})=> {return format(new Date(value), 'dd/MM/yyyy') } },
+  ];
+
+    useEffect(() => {
+      getUsers(dispatch, currentUser);
+    }, []);
+
+    const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => users, [users]);
+  
   return (
     <div className='px-6 mt-6'>
       <div className='flex items-center justify-between'>
@@ -13,7 +37,7 @@ const Users = () => {
           </button>
       </div>
       <div className='bg-white rounded-xl shadow-md overflow-x-auto mt-8 p-6 px-0 pt-0 pb-2'>
-        <List />
+        <List data={data} columns={columns} />
       </div>
     </div>
   );

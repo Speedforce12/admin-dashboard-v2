@@ -1,5 +1,4 @@
-
-import List from "../components/List";
+import List from "../components/table/List";
 import StatsCard from "../components/StatsCard";
 import Task from "./tasks/Task";
 
@@ -16,7 +15,7 @@ const Dashboard = () => {
         </div>
         <div className='bg-white text-center hover:shadow-2xl grid lg:col-span-2 rounded-lg shadow-xl py-5 overflow-auto'>
           <h4 className='font-semibold text-lg mb-2 '>Upcoming Events</h4>
-          <List />
+          {/* <List /> */}
         </div>
       </div>
     </>

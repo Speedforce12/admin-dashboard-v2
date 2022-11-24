@@ -80,7 +80,7 @@ const Sidebar = () => {
         </div>
         {/* action button */}
 
-        <div className='xl:mt-64 mt-28 flex items-center py-12 justify-center bg-white rounded-xl'>
+        <div className='sm:mt-56 mt-28 flex items-center py-12 justify-center bg-white rounded-xl'>
           <button className='inline-flex items-center px-4 py-2 gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md w-32'>
             <CgLogOut size={20} className='flex items-center justify-center' />
             LogOut

@@ -5,7 +5,7 @@ import userRouter from "./routes/userRouter.js";
 // import studentRouter from "./routes/studentRouter.js";
 import incomeRouter from "./routes/incomeRouter.js";
 import expenseRouter from "./routes/expenseRouter.js";
-// import teacherRouter from "./routes/teacherRouter.js";
+import teacherRouter from "./routes/teacherRouter.js";
 
 
 dotenv.config();
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 app.use(express.json({ limit: "50mb" }));
 app.use("/user", userRouter);
-// app.use("/teacher", teacherRouter);
+app.use("/teacher", teacherRouter);
 // app.use("/student", studentRouter);
 app.use("/income", incomeRouter);
 app.use("/expense", expenseRouter);
