@@ -41,7 +41,7 @@ export const updateProfile = async (currentUser, updatedFields, dispatch) => {
   dispatch({ type: "START_LOADING" });
 
   const { firstName, lastName, password, file } = updatedFields;
-  let body = { firstName, lastName, password, file};
+  let body = { firstName, lastName, password, file };
   try {
     if (file) {
       const imageName = uuidv4() + "." + file?.name?.split(".")?.pop();

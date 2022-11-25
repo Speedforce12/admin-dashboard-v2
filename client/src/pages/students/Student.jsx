@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import List from "../../components/table/List";
 import { useEffect, useMemo } from "react";
 import { useValue } from "../../context/AuthContext";
-import { getStudents } from "../../action/student"
-
+import { getStudents } from "../../action/student";
 
 const Student = () => {
-    const {
-      state: { students, currentUser },
-      dispatch,
-    } = useValue();
+  const {
+    state: { students, currentUser },
+    dispatch,
+  } = useValue();
 
   const COLUMNS = [
     { Header: "First Name" },
@@ -27,8 +26,6 @@ const Student = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => students, [students]);
 
-
-
   return (
     <div className='px-6 mt-6'>
       <div className='flex items-center justify-between'>
@@ -41,7 +38,7 @@ const Student = () => {
         </Link>
       </div>
       <div className='bg-white rounded-xl shadow-md overflow-x-auto mt-8 p-6 px-0 pt-0 pb-2'>
-        <List data={data} columns={columns} />
+        <List data={data} columns={columns} type={"student"} />
       </div>
     </div>
   );

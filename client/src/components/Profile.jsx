@@ -21,7 +21,7 @@ const validationSchema = yup.object({
   password: yup
     .string()
     .matches(PASSWORD_REGEX, "Please enter a strong password")
-    .required(),
+    ,
   confirmPassword: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
     then: yup.string().oneOf([yup.ref("password")], "Password does not match"),

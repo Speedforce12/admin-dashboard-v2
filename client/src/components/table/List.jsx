@@ -1,9 +1,57 @@
 import { BsTrash, BsEye } from "react-icons/bs";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useTable, useGlobalFilter, usePagination } from "react-table";
+import { deleteStudent } from "../../action/student";
+import { deleteTeacher } from "../../action/teacher";
+import { deleteUser } from "../../action/user";
+import { useValue } from "../../context/AuthContext";
 import GlobalFilter from "./GlobalFilter";
 
-const List = ({ data, columns }) => {
+const List = ({ data, columns, type }) => {
+  const {
+    state: { currentUser },
+    dispatch,
+  } = useValue();
+
+  // create actions button in the table
+  const tableHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: "actions",
+        Header: "Actions",
+        Cell: ({ row }) => (
+          <div>
+            <button>
+              <MdOutlineModeEditOutline className='h-5 w-5 mr-2' />
+            </button>
+            <button onClick={() => handleDelete(row)}>
+              <BsTrash className='h-5 w-5 mr-2' />
+            </button>
+
+            <button>
+              <BsEye className='h-5 w-5' />
+            </button>
+          </div>
+        ),
+      },
+    ]);
+  };
+
+
+  // handle delete of respective row in each table
+  const handleDelete = (row) => {
+    const data = row.original;
+
+    if (type === "teacher") {
+      deleteTeacher(data, currentUser, dispatch);
+    } else if (type === "student") {
+      deleteStudent(data, currentUser, dispatch);
+    } else {
+      deleteUser(data, currentUser, dispatch);
+    }
+  };
+
   const {
     getTableProps,
     preGlobalFilteredRows,
@@ -19,12 +67,13 @@ const List = ({ data, columns }) => {
     pageOptions,
     page,
     prepareRow,
-  } = useTable({ data, columns }, useGlobalFilter, usePagination);
+  } = useTable({ data, columns }, useGlobalFilter, tableHooks, usePagination);
 
-  const {pageIndex, pageSize} = state;
+  const { pageIndex, pageSize } = state;
 
   return (
     <>
+      {/* handle search filter of table */}
       <GlobalFilter
         preGlobalFilteredRows={preGlobalFilteredRows}
         setGlobalFilter={setGlobalFilter}
@@ -61,19 +110,6 @@ const List = ({ data, columns }) => {
                     </td>
                   );
                 })}
-
-                {/* <td className='flex gap-3 whitespace-nowrap p-3 text-sm text-gray-700'>
-                <button>
-                  <MdOutlineModeEditOutline className='h-5 w-5' />
-                </button>
-                <button>
-                  <BsTrash className='h-5 w-5' />
-                </button>
-
-                <button>
-                  <BsEye className='h-5 w-5' />
-                </button>
-              </td> */}
               </tr>
             );
           })}
@@ -95,12 +131,15 @@ const List = ({ data, columns }) => {
               {pageIndex + 1} of {pageOptions.length}
             </strong>
           </span>
-          <select className="ml-5 rounded-lg py-1 focus:ring-0" value={pageSize} onChange={e=> setPageSize(Number(e.target.value))}>
-            {
-              [10, 25, 50].map(pageSize => (
-                <option  value={pageSize} key={pageSize}>Show { pageSize}</option> 
-              ))
-}
+          <select
+            className='ml-5 rounded-lg py-1 focus:ring-0'
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}>
+            {[10, 25, 50].map((pageSize) => (
+              <option value={pageSize} key={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
           </select>
         </div>
         <button

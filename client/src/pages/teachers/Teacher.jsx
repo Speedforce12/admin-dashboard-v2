@@ -8,7 +8,7 @@ import { getTeachers } from "../../action/teacher";
 
 const Teacher = () => {
   const {
-    state: { teachers, currentUser },
+    state: { teachers, currentUser},
     dispatch,
   } = useValue();
 
@@ -26,7 +26,6 @@ const Teacher = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => teachers, [teachers]);
 
-
   return (
     <div className='px-6 mt-6'>
       <div className='flex items-center justify-between'>
@@ -39,7 +38,7 @@ const Teacher = () => {
         </Link>
       </div>
       <div className='bg-white rounded-xl shadow-md overflow-x-auto mt-8 p-6 px-0 pt-0 pb-2'>
-        <List data={data} columns={columns} />
+        <List data={data} columns={columns} type={"teacher"} />
       </div>
     </div>
   );
